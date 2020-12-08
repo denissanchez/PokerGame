@@ -1,0 +1,17 @@
+﻿@{
+    ViewData["Title"] = "Poker game";
+}
+
+<div class="row">
+    <div class="col-6">
+        <form method="post" action="/Game/Resultado">
+            @for (var i = 0; i < 5; i++) { 
+                <div class="form-group">
+                    <label>Jugador @(i + 1):</label>
+                    <input type="text" name="players[@i].Name" class="form-control" placeholder="Nombre del jugador @(i + 1)" required autocomplete="off"/>
+                </div>
+            }
+            <button type="submit" class="btn btn-block btn-primary">Jugar!</button>
+        </form>
+    </div>
+</div>
