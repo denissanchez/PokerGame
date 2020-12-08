@@ -23,8 +23,10 @@ namespace PokerApp.Controllers
         public IActionResult Resultado(List<PlayerViewModel> players)
         {
             _dealer.RepartirCartas(players);
-            _dealer.VerificarGanadores(players);
-            return View(players);
+            _dealer.GetPlayersStrategies(players);
+
+            var positionsTable = _dealer.MakePositionsTable(players);
+            return View(positionsTable);
         }
 
     }

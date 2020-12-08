@@ -1,9 +1,7 @@
 ﻿using NUnit.Framework;
 using PokerApp.Services;
 using PokerApp.ViewModels;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace PokerApp.Test
 {
@@ -20,14 +18,30 @@ namespace PokerApp.Test
         }
 
         [Test]
-        public void ReparteCincoCartasACadaJugador()
+        public void ReparteCincoCartasADosJugadores()
         {
             var dealer = new DealerService();
-            var players = GetPlayers(1);
+            var players = GetPlayers(2);
 
             dealer.RepartirCartas(players);
 
             Assert.That(players[0].Cartas.Count == 5);
+            Assert.That(players[1].Cartas.Count == 5);
+        }
+
+        [Test]
+        public void ReparteCincoCartasACincoJugadores()
+        {
+            var dealer = new DealerService();
+            var players = GetPlayers(5);
+
+            dealer.RepartirCartas(players);
+
+            Assert.That(players[0].Cartas.Count == 5);
+            Assert.That(players[1].Cartas.Count == 5);
+            Assert.That(players[2].Cartas.Count == 5);
+            Assert.That(players[3].Cartas.Count == 5);
+            Assert.That(players[4].Cartas.Count == 5);
         }
 
         [Test]
@@ -64,7 +78,7 @@ namespace PokerApp.Test
                     },
             };
 
-            dealer.VerificarGanadores(players);
+            dealer.GetPlayersStrategies(players);
             Assert.AreEqual(players[0].Estrategia, "Escalera Color");
         }
 
@@ -103,7 +117,7 @@ namespace PokerApp.Test
                     },
             };
 
-            dealer.VerificarGanadores(players);
+            dealer.GetPlayersStrategies(players);
             Assert.AreEqual(players[0].Estrategia, "Poker");
         }
 
@@ -141,7 +155,7 @@ namespace PokerApp.Test
                     },
             };
 
-            dealer.VerificarGanadores(players);
+            dealer.GetPlayersStrategies(players);
             Assert.AreEqual(players[0].Estrategia, "Full");
         }
 
@@ -179,7 +193,7 @@ namespace PokerApp.Test
                     },
             };
 
-            dealer.VerificarGanadores(players);
+            dealer.GetPlayersStrategies(players);
             Assert.AreEqual(players[0].Estrategia, "Color");
         }
 
@@ -217,7 +231,7 @@ namespace PokerApp.Test
                     },
             };
 
-            dealer.VerificarGanadores(players);
+            dealer.GetPlayersStrategies(players);
             Assert.AreEqual(players[0].Estrategia, "Escalera");
         }
 
@@ -255,7 +269,7 @@ namespace PokerApp.Test
                     },
             };
 
-            dealer.VerificarGanadores(players);
+            dealer.GetPlayersStrategies(players);
             Assert.AreEqual(players[0].Estrategia, "Trio");
         }
 
@@ -293,7 +307,7 @@ namespace PokerApp.Test
                     },
             };
 
-            dealer.VerificarGanadores(players);
+            dealer.GetPlayersStrategies(players);
             Assert.AreEqual(players[0].Estrategia, "Doble Par");
         }
 
@@ -331,7 +345,7 @@ namespace PokerApp.Test
                     },
             };
 
-            dealer.VerificarGanadores(players);
+            dealer.GetPlayersStrategies(players);
             Assert.AreEqual(players[0].Estrategia, "Un Par");
         }
 
@@ -369,7 +383,7 @@ namespace PokerApp.Test
                     },
             };
 
-            dealer.VerificarGanadores(players);
+            dealer.GetPlayersStrategies(players);
             Assert.AreEqual(players[0].Estrategia, "Carta Alta");
         }
     }

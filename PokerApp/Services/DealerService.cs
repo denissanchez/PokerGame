@@ -3,6 +3,7 @@ using PokerApp.Models;
 using PokerApp.Strategies;
 using PokerApp.ViewModels;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace PokerApp.Services
 {
@@ -68,9 +69,16 @@ namespace PokerApp.Services
             {
                 player.Cartas = new List<Carta>();
 
-                for (int i = 1; i <= 5; i++) {
+                for (int i = 0; i < 5; i++) {
                     var randomId = UtilService.NumeroAleatorio(1, cartas.Count + 1);
                     var carta = cartas.GetValueOrDefault(randomId);
+
+                    if (carta == null)
+                    {
+                        i--;
+                        continue;
+                    }
+
                     player.Cartas.Add(carta);
                     cartas.Remove(randomId);
                 }
@@ -89,7 +97,7 @@ namespace PokerApp.Services
             return respuesta;
         }
 
-        public void VerificarGanadores(List<PlayerViewModel> players)
+        public void GetPlayersStrategies(List<PlayerViewModel> players)
         {
             foreach (var player in players)
             {
@@ -112,6 +120,11 @@ namespace PokerApp.Services
                 else
                     VerificarMano(cartaAltaStrategy, player);
             }
+        }
+
+        public Dictionary<int, IGrouping<int, PlayerViewModel>> MakePositionsTable(List<PlayerViewModel> players)
+        {
+            return players.GroupBy(o => o.Puntaje).OrderByDescending(o => o.Key).ToDictionary(o => o.Key);
         }
     }
 }

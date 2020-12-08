@@ -1,5 +1,46 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model Dictionary<int, IGrouping<int, PokerApp.ViewModels.PlayerViewModel>>
+
+
+<div class="row">
+    <div class="col-12">
+        <h1>Tabla de posiciones</h1>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Posición</th>
+                    <th>Jugador</th>
+                    <th>Estrategía</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (var i = 0; i < Model.Count; i++)
+                {
+                    <tr>
+                        <td>@(i + 1) </td>
+                        <td>
+                            <ul>
+                                @foreach (var player in Model.ToList()[i].Value.ToList())
+                                {
+                                    <li>
+                                        @player.Name
+                                        <br />
+                                        Cartas:
+                                        <ul>
+                                            @foreach (var carta in player.Cartas)
+                                            {
+                                                <li>@carta.Valor de @carta.Palo</li>
+                                            }
+                                        </ul>
+                                    </li>
+                                }
+                            </ul>
+                        </td>
+
+                        <td>@Model.ToList()[i].Value.ToList()[0].Estrategia</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
